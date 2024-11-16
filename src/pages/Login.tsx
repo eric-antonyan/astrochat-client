@@ -31,7 +31,7 @@ const Login = () => {
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ touched, errors, isSubmitting }) => (
+                {({ touched, errors, isSubmitting, isValid }) => (
                     <Form className={"max-w-[450px] w-full flex flex-col items-center gap-4 mx-auto"}>
                         <img className={"w-[200px]"} src={logo} alt="AstroChat Logo" />
                         <h3 className={"text-center font-bold"}>
@@ -59,18 +59,17 @@ const Login = () => {
                                 label="Password"
                                 type="password"
                                 isRequired
-                                status={touched.password && errors.password ? "error" : "default"}
-                                helperText={touched.password && errors.password ? errors.password : ""}
+                                isInvalid={touched.password && errors.password}
+                                errorMessage={touched.password && errors.password ? errors.password : ""}
                             />
                         </div>
 
                         {/* Submit Button */}
                         <Button
-                            isDisabled={!isSubmitting}
+                            isDisabled={!isSubmitting && !isValid}
                             type="submit"
                             className={"w-full font-bold bg-black text-white"}
                             size={"lg"}
-                            disabled={isSubmitting}
                         >
                             Log in
                         </Button>
